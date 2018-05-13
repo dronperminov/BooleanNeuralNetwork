@@ -10,6 +10,22 @@ double SigmoidDerivative(double x) {
 	return Sigmoid(x) * (1 - Sigmoid(x));
 }
 
+double HiperbolicTangent(double x) {
+	return (exp(2 * x) - 1) / (exp(2 * x) + 1);
+}
+
+double HiperbolicTangentDerivative(double x) {
+	return 4 * exp(2 * x) / pow(exp(2 * x) + 1, 2);
+}
+
+double ReLU(double x) {
+	return x > 0 ? x : 0;
+}
+
+double ReLUDerivative(double x) {
+	return x > 0 ? 1 : 0;
+}
+
 Neuron::Neuron(NeuronType type, size_t inputsSize) {
 	this->inputsSize = inputsSize;
 	this->type = type;
@@ -21,7 +37,7 @@ Neuron::Neuron(NeuronType type, size_t inputsSize) {
 		srand(time(NULL));
 
 		for (size_t i = 0; i < inputsSize; i++)
-			weights[i] = (double) rand() / RAND_MAX;
+			weights[i] = -0.5 + (double) rand() / RAND_MAX;
 	}
 	else {
 		for (size_t i = 0; i < inputsSize; i++)
@@ -92,7 +108,7 @@ double Neuron::GetOutput() const {
 	for (size_t i = 0; i < inputsSize; i++)
 		sum += inputs[i] * weights[i];
 
-	return type == NeuronType::input ? sum : ActivationFunction(sum);
+	return type == NeuronType::hidden ? ActivationFunction(sum) : sum;
 }
 
 double Neuron::GetDerivativeOutput() const {

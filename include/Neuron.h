@@ -15,6 +15,12 @@ typedef double (*ActivationPointer)(double); // тип указателя на �
 double Sigmoid(double x); // сигмоидальная функция активации
 double SigmoidDerivative(double x); // производная сигмоидальной функции активации
 
+double HiperbolicTangent(double x); // гиперболический тангенс
+double HiperbolicTangentDerivative(double x); // производная гиперболического тангенса
+
+double ReLU(double x); // выпрямитель
+double ReLUDerivative(double x); // производная выпрямителя
+
 class Neuron {
 	size_t inputsSize; // число входов нейрона
 	NeuronType type; // тип нейрона
