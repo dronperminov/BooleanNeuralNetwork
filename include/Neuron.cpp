@@ -117,7 +117,7 @@ double Neuron::GetDerivativeOutput() const {
 	for (size_t i = 0; i < inputsSize; i++)
 		sum += inputs[i] * weights[i];
 
-	return ActivationDerivativeFunction(sum);
+	return /*type == NeuronType::hidden ?*/ ActivationDerivativeFunction(sum)/* : 1*/;
 }
 
 void Neuron::Print() const {

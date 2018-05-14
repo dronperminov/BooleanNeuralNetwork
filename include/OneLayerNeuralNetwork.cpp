@@ -105,7 +105,7 @@ void OneLayerNeuralNetwork::Train(const vector<vector<double>>& learnInputData, 
 				gError += sigmas[i] * sigmas[i];
 			}
 
-			vector<double> errors = vector<double>(hiddensSize);
+			vector<double> errors = vector<double>(hiddensSize, 0);
 			for (size_t i = 0; i < outputsSize; i++) {
 				for (size_t j = 0; j < hiddensSize; j++) {
 					errors[j] += sigmas[i] * outputs[i].GetWeight(j);
@@ -115,7 +115,7 @@ void OneLayerNeuralNetwork::Train(const vector<vector<double>>& learnInputData, 
 			for (size_t i = 0; i < hiddensSize; i++) {
 				for (size_t j = 0; j < inputsSize; j++) {
 					double weight = hiddens[i].GetWeight(j);
-					hiddens[i].SetWeight(j, weight + alpha * errors[i] * inputs[j].GetOutput());
+					hiddens[i].SetWeight(j, weight + alpha * errors[i] * inputs[j].GetOutput() * hiddens[i].GetDerivativeOutput());
 				}
 			}
 
